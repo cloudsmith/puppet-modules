@@ -1,7 +1,20 @@
-class newrelic::server($license_key) {
+class newrelic::server(
+	$license_key,
+	$collector_host = 'collector.newrelic.com',
+	$proxy = '',
+	$ssl = false,
+	$timeout = 30,
+	$socket = '/tmp/.newrelic.sock',
+	$max_threads = 8,
+	$metric_limit = 2000,
+	$special = 0,
+	$pidfile = '/var/run/newrelic/server-monitor.pid',
+	$logfile = '/var/log/newrelic/server-monitor.log',
+	$loglevel = 'info'
+) {
 	package { "newrelic-repo":
 		provider => rpm,
-		source => "http://beta.newrelic.com/d/newrelic-repo-5-3.noarch.rpm",
+		source => 'http://beta.newrelic.com/d/newrelic-repo-5-3.noarch.rpm',
 		ensure => latest,
 	}
 

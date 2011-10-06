@@ -1,18 +1,15 @@
 license_key=<%= license_key %>
 
-logfile=/var/log/newrelic/server-monitor.log
-loglevel=info
+collector_host=<% collector_host %>
+proxy=<% proxy %>
+ssl=<% ssl %>
+timeout=<% timeout %>
 
-# The rest of the daemon options are shown with their default values.
-# Uncomment and edit to change a setting from its default value.
+socket=<% socket %>
+max_threads=<% max_threads %>
+metric_limit=<% metric_limit %>
+special=<% special %>
 
-#pidfile=/var/run/newrelic/server-monitor.pid
-
-#collector_host=collector.newrelic.com
-#ssl=false
-#timeout=30
-#socket=/tmp/.newrelic.sock
-#max_threads=8
-#metric_limit=2000
-#special=0
-#proxy=
+pidfile=<% pidfile %>
+logfile=<% logfile %>
+loglevel=<% loglevel %>
