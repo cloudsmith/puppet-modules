@@ -1,7 +1,7 @@
 license_key=<%= license_key %>
 
 collector_host=<%= collector_host %>
-proxy=<%= proxy %>
+<%= proxy.to_s.empty? ? '#' : '' %>proxy=<%= proxy %>
 ssl=<%= ssl %>
 timeout=<%= collector_timeout %>
 
