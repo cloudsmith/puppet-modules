@@ -3,7 +3,7 @@ class newrelic::server(
 	$collector_host = 'collector.newrelic.com',
 	$proxy = '',
 	$ssl = false,
-	$timeout = 30,
+	$collector_timeout = 30,
 	$socket = '/tmp/.newrelic.sock',
 	$max_threads = 8,
 	$metric_limit = 2000,
