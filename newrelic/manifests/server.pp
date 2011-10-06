@@ -32,7 +32,8 @@ class newrelic::server(
 	file { "/etc/newrelic/server-monitor.cfg":
 		content => template("newrelic/server-monitor.cfg.erb"),
 		owner => root,
-		group => root,
+		group => newrelic,
+		mode => 0640,
 		ensure => present,
 		subscribe => Package["newrelic-server-monitor"],
 	}
