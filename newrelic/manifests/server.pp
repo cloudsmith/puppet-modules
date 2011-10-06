@@ -2,7 +2,7 @@ class newrelic::server(
 	$license_key,
 	$collector_host = 'collector.newrelic.com',
 	$proxy = '',
-	$ssl = false,
+	$ssl = true,
 	$collector_timeout = 30,
 	$socket = '/tmp/.newrelic.sock',
 	$max_threads = 8,
