@@ -1,5 +1,5 @@
 class newrelic::server(
-	$license_key,
+	$license_key = $::newrelic_license,
 	$collector_host = 'collector.newrelic.com',
 	$proxy = '',
 	$ssl = true,
