@@ -10,7 +10,7 @@ class newrelic::server(
 	$special = 0,
 	$pidfile = '/var/run/newrelic/server-monitor.pid',
 	$logfile = '/var/log/newrelic/server-monitor.log',
-	$loglevel = 'info'
+	$loglvl = 'info'
 ) {
 	package { "newrelic-repo":
 		provider => rpm,
