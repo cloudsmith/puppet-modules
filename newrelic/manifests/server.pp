@@ -1,46 +1,38 @@
 class newrelic::server(
 	$license_key = $::newrelic_license,
-	$collector_host = 'collector.newrelic.com',
+	$collector_host = '',
 	$proxy = '',
-	$ssl = true,
-	$collector_timeout = 30,
-	$socket = '/tmp/.newrelic.sock',
-	$max_threads = 8,
-	$metric_limit = 2000,
-	$special = 0,
-	$pidfile = '/var/run/newrelic/server-monitor.pid',
-	$logfile = '/var/log/newrelic/server-monitor.log',
-	$loglvl = 'info'
+	$ssl = '',
+	$ssl_ca_bundle = '',
+	$ssl_ca_path = '',
+	$collector_timeout = '',
+	$logfile = '/var/log/newrelic/nrsysmond.log',
+	$loglvl = 'info',
+	$pidfile = '/var/run/newrelic/nrsysmond.pid'
 ) {
-	package { "newrelic-repo":
+	package { 'newrelic-repo':
+		ensure => latest,
+		source => 'http://download.newrelic.com/pub/newrelic/el5/i386/newrelic-repo-5-3.noarch.rpm',
 		provider => rpm,
-		source => 'http://beta.newrelic.com/d/newrelic-repo-5-3.noarch.rpm',
+	}
+
+	package { 'newrelic-sysmond':
 		ensure => latest,
+		require => Package['newrelic-repo'],
 	}
 
-	file { "/etc/yum.repos.d/newrelic.repo":
-		content => retrieve('http://beta.newrelic.com/d/beta.repo'),
-		ensure => present,
-		require => Package["newrelic-repo"],
-	}
-
-	package { "newrelic-server-monitor":
-		ensure => latest,
-		require => File["/etc/yum.repos.d/newrelic.repo"],
-	}
-
-	file { "/etc/newrelic/server-monitor.cfg":
-		content => template("newrelic/server-monitor.cfg.erb"),
+	file { '/etc/newrelic/nrsysmond.cfg':
+		content => template('newrelic/nrsysmond.cfg.erb'),
 		owner => root,
 		group => newrelic,
 		mode => 0640,
 		ensure => present,
-		subscribe => Package["newrelic-server-monitor"],
+		subscribe => Package['newrelic-sysmond'],
 	}
 
-	service { "newrelic-server-monitor":
+	service { 'newrelic-sysmond':
 		enable => true,
 		ensure => running,
-		subscribe => [Package["newrelic-server-monitor"], File["/etc/newrelic/server-monitor.cfg"]],
+		subscribe => [Package['newrelic-sysmond'], File['/etc/newrelic/nrsysmond.cfg']],
 	}
 }
