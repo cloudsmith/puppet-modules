@@ -1,9 +1,0 @@
-name 'cloudsmith-utils'
-version '0.1.0'
-
-author 'mruzicka'
-license ''
-project_page ''
-source ''
-summary 'Assoreted utilities used by other modules'
-description ''

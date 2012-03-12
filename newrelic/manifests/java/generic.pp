@@ -1,5 +1,5 @@
 define newrelic::java::generic($container_home, $container_config_file, $variable, $license_key, $generated_for_user = '', $notification_target) {
-	include utils::java
+	include newrelic::utils::java
 
 	$newrelic_java_agent_root = "${container_home}/newrelic"
 	$newrelic_java_agent_option = "\"$${variable} -javaagent:${newrelic_java_agent_root}/newrelic.jar\""
@@ -10,10 +10,10 @@ define newrelic::java::generic($container_home, $container_config_file, $variabl
 
 	# download and unpack the newrelic java agent
 	exec { "newrelic_java_agent_download-${newrelic_java_agent_root}":
-		command => "curl -sS \"http://download.newrelic.com/newrelic/java-agent/newrelic-api/2.3.1/newrelic_agent2.3.1.zip\" | java -classpath \"${settings::vardir}/utils/java\" Unzip \"${container_home}\"; mv \"${newrelic_java_agent_root}/newrelic.yml\" \"${newrelic_java_agent_root}/newrelic.yml.erb\"",
+		command => "curl -sS \"http://download.newrelic.com/newrelic/java-agent/newrelic-api/2.3.1/newrelic_agent2.3.1.zip\" | java -classpath \"${settings::vardir}/newrelic/java\" Unzip \"${container_home}\"; mv \"${newrelic_java_agent_root}/newrelic.yml\" \"${newrelic_java_agent_root}/newrelic.yml.erb\"",
 		path => ['/usr/local/bin', '/bin', '/usr/bin'],
 		creates => "${newrelic_java_agent_root}/newrelic.yml.erb",
-		require => [Package['curl'], File["${settings::vardir}/utils/java/Unzip.class"]],
+		require => [Package['curl'], File["${settings::vardir}/newrelic/java/Unzip.class"]],
 	}
 
 	# expand the confguration file to include the license key
