@@ -1,5 +1,5 @@
 class newrelic::utils {
-	file { "$settings::vardir/newrelic":
+	file { "${settings::vardir}/newrelic":
 		ensure => directory,
 	}
 }
